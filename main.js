@@ -1,6 +1,32 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-d3.csv("movie_metadata.csv").then((data)=>{
+d3.csv("movie_metadata.csv").then((data) => {
     console.log(data)
 })
+
+//  const data = [10, 30, 40, 15, 100]
+
+const data = [
+    { name: 'London', population: 8674000 },
+    { name: 'New York', population: 8406000 },
+    { name: 'Sydney', population: 4293000 },
+    { name: 'Paris', population: 2244000 },
+    { name: 'Beijing', population: 11510000 }
+]
+
+
+let g = d3.select("#vis")// var g becomes an array of 5 svg circles
+    .selectAll("circle")
+    .data(data)
+    .join("rect") //mapping a circle to each array element
+
+// Using "+" convert strings to numeric types
+g.attr("fill", "steelblue")
+    .attr("width", function (d) { return +d.population / 1000000 })
+    .attr("height", function (d) { return +d.population / 1000000 })
+    .attr("x", function (d, i) { return 50 * i })
+    .attr("y", function (d, i) { return 50 * i })
+
+
+g.attr('transform', "translate(50,50)")
 
